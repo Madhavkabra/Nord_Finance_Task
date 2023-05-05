@@ -95,12 +95,22 @@ export const People = () => {
   };
 
   const handleNextButtonClick = () => {
-    setApiEndpoint(`/api/people/?page=${page + 1}`);
+    if (searchedName) {
+      setApiEndpoint(`/api/people/?page=${page + 1}&search=${searchedName}`);
+    } else {
+      setApiEndpoint(`/api/people/?page=${page + 1}`);
+    }
+
     setPage((page) => page + 1);
   };
 
   const handlePreviousButtonClick = () => {
-    setApiEndpoint(`/api/people/?page=${page - 1}`);
+    if (searchedName) {
+      setApiEndpoint(`/api/people/?page=${page - 1}&search=${searchedName}`);
+    } else {
+      setApiEndpoint(`/api/people/?page=${page - 1}`);
+    }
+
     setPage((page) => page - 1);
   };
 
