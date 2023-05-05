@@ -1,0 +1,45 @@
+.inputContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  padding-right: 10px;
+  border-radius: 8px;
+  border: 1px solid #0000000d;
+  outline-color: #e0e0e0;
+  cursor: text;
+  min-width: 340px;
+}
+
+.inputContainerFocused {
+  border-color: #000;
+}
+
+.inputIconContainer {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.inputIconContainer:hover {
+  cursor: pointer;
+  background-color: #000;
+  color: #e0e0e0;
+  border-color: #000;
+}
+
+.input {
+  padding: 10px 12px;
+  min-width: 280px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000;
+  outline: hidden;
+  outline-width: 0;
+  border: none;
+  border-radius: 8px;
+}
