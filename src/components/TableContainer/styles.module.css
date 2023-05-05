@@ -1,0 +1,6 @@
+.tableContainer {
+  width: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+}
