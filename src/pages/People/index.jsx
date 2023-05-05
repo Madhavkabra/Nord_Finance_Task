@@ -15,42 +15,55 @@ const maniputatePeopleApiRes = (people) => {
     id: person.url,
     data: [
       {
-        label: `${index + 1}`,
+        id: 'srNo',
+        label: index + 1,
       },
       {
+        id: 'name',
         label: person.name,
       },
       {
+        id: 'gender',
         label: person.gender,
       },
       {
+        id: 'birthYear',
         label: person.birth_year,
       },
       {
+        id: 'eyeColor',
         label: person.eye_color,
       },
       {
+        id: 'hairColor',
         label: person.hair_color,
       },
       {
+        id: 'skinColor',
         label: person.skin_color,
       },
       {
+        id: 'height',
         label: person.height,
       },
       {
+        id: 'mass',
         label: person.mass,
       },
       {
+        id: 'species',
         label: person.species.length,
       },
       {
+        id: 'films',
         label: person.films.length,
       },
       {
+        id: 'starships',
         label: person.starships.length,
       },
       {
+        id: 'vehicles',
         label: person.vehicles.length,
       },
     ],
