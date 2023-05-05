@@ -37,7 +37,7 @@ Table.propTypes = {
       id: PropTypes.string.isRequired,
       data: PropTypes.arrayOf(
         PropTypes.shape({
-          label: PropTypes.string.isRequired,
+          label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         })
       ),
     })
