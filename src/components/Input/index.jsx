@@ -45,7 +45,7 @@ export const Input = ({ name, value, onChange, placeholder, ...props }) => {
           className={styles.inputIconContainer}
           onClick={handleClearInputButtonClick}
         >
-          <i class='fa-solid fa-xmark fa-lg'></i>
+          <i className='fa-solid fa-xmark fa-lg'></i>
         </div>
       )}
     </div>
