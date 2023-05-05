@@ -1,6 +1,5 @@
 .table {
   width: 100%;
-  padding: 12px 0;
   border-collapse: collapse;
   overflow: auto;
   display: block;
@@ -25,12 +24,6 @@
 
 .table > tbody > tr:nth-of-type(1) > td {
   border: none;
-}
-
-.table > tbody > tr:last-of-type,
-.table > tbody > tr:last-of-type > td {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
 }
 
 .table > tbody > tr:nth-child(even) {
