@@ -8,6 +8,7 @@ import { TableFooter } from '../../components/TableFooter';
 import { TableContainer } from '../../components/TableContainer';
 import { API_BASE_URL } from '../../config';
 import { columns } from './columns';
+import { debounce } from '../../utils/debounce';
 
 const maniputatePeopleApiRes = (people) => {
   return people.map((person, index) => ({
@@ -68,8 +69,16 @@ export const People = () => {
     return { ...data, results: maniputatePeopleApiRes(data.results) };
   });
 
-  const handleSearchNameChange = (event) => {
-    setSearchedName(event.target.value);
+  const updateSearchEndpoint = debounce((name) => {
+    setPage(1);
+    setApiEndpoint(`/api/people/?search=${name}`);
+  });
+
+  const handleNameChange = (event) => {
+    const { value } = event.target;
+
+    setSearchedName(value);
+    updateSearchEndpoint(value);
   };
 
   const handleNextButtonClick = () => {
@@ -92,7 +101,7 @@ export const People = () => {
           inputName='starWarName'
           inputPlaceholder='Search Name...'
           inputValue={searchedName}
-          onChangeInput={handleSearchNameChange}
+          onChangeInput={handleNameChange}
         />
 
         {/* Table */}
