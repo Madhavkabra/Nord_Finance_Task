@@ -15,10 +15,6 @@ const maniputatePeopleApiRes = (people) => {
     id: person.url,
     data: [
       {
-        id: 'srNo',
-        label: index + 1,
-      },
-      {
         id: 'name',
         label: person.name,
       },
@@ -129,6 +125,7 @@ export const People = () => {
 
         {/* Table */}
         <Table
+          searchedName={searchedName}
           columns={columns}
           rows={data?.results || []}
         />

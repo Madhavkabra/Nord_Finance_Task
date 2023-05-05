@@ -1,13 +1,9 @@
 export const columns = [
   {
-    id: 'srNo',
-    label: 'Sr No',
-    width: '5%',
-  },
-  {
     id: 'name',
     label: 'Name',
     width: '30%',
+    sort: true,
   },
   {
     id: 'gender',

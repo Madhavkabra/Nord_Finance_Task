@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { debounce } from '../../utils/debounce';
 import styles from './styles.module.css';
 
-export const Table = ({ columns, rows }) => {
+export const Table = ({ columns, rows, searchedName }) => {
   const [rowsData, setRowsData] = useState(rows);
-  const [order, setOrder] = useState('desc');
+  const [order, setOrder] = useState('asc');
 
   const isAsc = order === 'asc';
 
@@ -13,41 +14,49 @@ export const Table = ({ columns, rows }) => {
     return options.find((option) => option.id === id);
   };
 
-  const toggleOrder = () => {
+  const toggleOrder = useCallback(() => {
     if (order === 'asc') {
       setOrder('desc');
       return;
     }
 
     setOrder('asc');
-  };
+  }, [order]);
 
-  const sortData = (id) => {
-    const sortedRows = [...rowsData].sort((first, second) => {
-      const a = findDataById(second.data, id)['label'];
-      const b = findDataById(first.data, id)['label'];
+  const sortData = useCallback(
+    (id) => {
+      const sortedRows = [...rows].sort((first, second) => {
+        const a = findDataById(second.data, id)['label'];
+        const b = findDataById(first.data, id)['label'];
 
-      if (typeof a === 'string') {
-        if (a > b) {
-          return isAsc ? -1 : 1;
+        if (typeof a === 'string') {
+          if (a > b) {
+            return isAsc ? 1 : -1;
+          }
+
+          if (a < b) {
+            return isAsc ? -1 : 1;
+          }
+
+          return 0;
         }
 
-        if (a < b) {
-          return isAsc ? 1 : -1;
-        }
+        return isAsc ? a - b : b - a;
+      });
 
-        return 0;
-      }
-
-      return isAsc ? b - a : a - b;
-    });
-
-    setRowsData(sortedRows);
-    toggleOrder();
-  };
+      setRowsData(sortedRows);
+      toggleOrder();
+    },
+    [isAsc, rows, toggleOrder]
+  );
 
   useEffect(() => {
-    setRowsData(rows);
+    debounce(setOrder('asc'));
+  }, [searchedName]);
+
+  useEffect(() => {
+    sortData('name');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows]);
 
   return (
@@ -58,15 +67,17 @@ export const Table = ({ columns, rows }) => {
             <th
               key={`${columnIndex}-${column.label}`}
               width={column?.width || `${100 / columns.length}%`}
-              onClick={() => sortData(column.id)}
+              onClick={() => column?.sort && sortData(column.id)}
             >
               {column.label}
 
-              <i
-                className={cx('fa-solid fa-arrow-up', {
-                  [styles.orderIconRotate]: isAsc,
-                })}
-              ></i>
+              {column?.sort && (
+                <i
+                  className={cx('fa-solid fa-arrow-up', {
+                    [styles.orderIconRotate]: !isAsc,
+                  })}
+                />
+              )}
             </th>
           ))}
         </tr>
@@ -86,6 +97,7 @@ export const Table = ({ columns, rows }) => {
 };
 
 Table.propTypes = {
+  searchedName: PropTypes.string,
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -101,6 +113,7 @@ Table.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
+      sort: PropTypes.bool,
       width: PropTypes.string,
     })
   ),
