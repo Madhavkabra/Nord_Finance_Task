@@ -1,0 +1,36 @@
+.tableFooter {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+}
+
+.pageCount {
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.tableFooterActionButtonContainer {
+  display: flex;
+  width: 200px;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.tableFooterActionButtonContainer > button {
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 50%;
+  border-radius: 8px;
+  border: 1px solid #000;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.tableFooterActionButtonContainer > button:hover {
+  background-color: #000;
+  color: #fff;
+}
