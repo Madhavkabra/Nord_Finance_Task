@@ -97,7 +97,7 @@ export const peopleFetcher = async (apiEndpoint) => {
 
   return {
     ...data,
-    results: maniputatePeopleApiRes(dataWithSpecies.results),
+    results: maniputatePeopleApiRes(dataWithSpecies?.results || []),
     speciesWithCount,
   };
 };

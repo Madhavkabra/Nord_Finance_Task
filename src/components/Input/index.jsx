@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './styles.module.css';
-import { useOutsideClickListener } from '../../hooks/useClickListener';
+import { useOutsideClickListener } from '../../hooks/useOutsideClickListener';
 
 export const Input = ({ name, value, onChange, placeholder, ...props }) => {
   const [focused, setFocused] = useState(false);

@@ -14,7 +14,7 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   const isAsc = order === ASC_ORDER;
 
   const loader = useLoader({
-    data: Object.keys(rows.length || 0),
+    data: rows.length,
     isError: isError,
     isLoading: isLoading,
   });
@@ -73,6 +73,7 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
           {columns.map((column, columnIndex) => (
             <th
               key={`${columnIndex}-${column.label}`}
+              className={cx({ [styles.hoverTableHead]: column?.sort })}
               width={column?.width || `${100 / columns.length}%`}
               onClick={() => column?.sort && handleClickOnColumnHead(column.id)}
             >

@@ -13,10 +13,13 @@
   font-weight: 600;
   white-space: nowrap;
   text-align: left;
+}
+
+.hoverTableHead {
   cursor: pointer;
 }
 
-.table > thead > tr > th:hover > i {
+.hoverTableHead:hover > i {
   opacity: 0.8;
   visibility: visible;
 }
