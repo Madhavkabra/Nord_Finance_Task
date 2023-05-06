@@ -22,7 +22,7 @@ export const People = () => {
     error: errorPeople,
   } = useSWR(apiEndpoint, peopleFetcher);
 
-  const updateSearchEndpoint = debounce((name) => {
+  const debouncedSearch = debounce((name) => {
     setPage(1);
     setApiEndpoint(`/api/people/?search=${name}`);
   });
@@ -31,7 +31,7 @@ export const People = () => {
     const { value } = event.target;
 
     setSearchedName(value);
-    updateSearchEndpoint(value);
+    debouncedSearch(value);
   };
 
   const handleNextButtonClick = () => {
