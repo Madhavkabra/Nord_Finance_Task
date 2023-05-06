@@ -99,11 +99,20 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
         </tr>
       </thead>
 
-      {loader && <div className={styles.loader}>{loader}</div>}
+      <tbody>
+        {loader && (
+          <tr>
+            <td
+              colSpan={'100%'}
+              className={styles.loader}
+            >
+              {loader}
+            </td>
+          </tr>
+        )}
 
-      {!loader && (
-        <tbody>
-          {rowsData.map((row, rowIndex) => (
+        {!loader &&
+          rowsData.map((row, rowIndex) => (
             <tr key={`${rowIndex}-${row?.id}`}>
               {row?.data?.map((rowData, rowDataIndex) => (
                 <td key={`${rowDataIndex}-${rowData.label}`}>
@@ -112,8 +121,7 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
               ))}
             </tr>
           ))}
-        </tbody>
-      )}
+      </tbody>
     </table>
   );
 };
@@ -128,7 +136,11 @@ Table.propTypes = {
       data: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.string.isRequired,
-          label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+          label: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.element,
+          ]),
         })
       ),
     })

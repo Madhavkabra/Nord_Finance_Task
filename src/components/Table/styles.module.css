@@ -54,7 +54,10 @@
 .loader {
   height: 560px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.loader > * {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

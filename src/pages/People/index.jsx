@@ -6,77 +6,16 @@ import { TableToolbar } from '../../components/TableToolbar';
 import { Table } from '../../components/Table';
 import { TableFooter } from '../../components/TableFooter';
 import { TableContainer } from '../../components/TableContainer';
-import { API_BASE_URL } from '../../config';
 import { columns } from './columns';
 import { debounce } from '../../utils/debounce';
-
-const maniputatePeopleApiRes = (people) => {
-  return people.map((person) => ({
-    id: person.url,
-    data: [
-      {
-        id: 'name',
-        label: person.name,
-      },
-      {
-        id: 'gender',
-        label: person.gender,
-      },
-      {
-        id: 'birthYear',
-        label: person.birth_year,
-      },
-      {
-        id: 'eyeColor',
-        label: person.eye_color,
-      },
-      {
-        id: 'hairColor',
-        label: person.hair_color,
-      },
-      {
-        id: 'skinColor',
-        label: person.skin_color,
-      },
-      {
-        id: 'height',
-        label: person.height,
-      },
-      {
-        id: 'mass',
-        label: person.mass,
-      },
-      {
-        id: 'species',
-        label: person.species.length,
-      },
-      {
-        id: 'films',
-        label: person.films.length,
-      },
-      {
-        id: 'starships',
-        label: person.starships.length,
-      },
-      {
-        id: 'vehicles',
-        label: person.vehicles.length,
-      },
-    ],
-  }));
-};
+import { peopleFetcher } from './peopleFetcher';
 
 export const People = () => {
   const [searchedName, setSearchedName] = useState('');
   const [apiEndpoint, setApiEndpoint] = useState('/api/people/');
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, error } = useSWR(apiEndpoint, async () => {
-    const res = await fetch(`${API_BASE_URL}${apiEndpoint}`);
-    const data = await res.json();
-
-    return { ...data, results: maniputatePeopleApiRes(data.results) };
-  });
+  const { data, isLoading, error } = useSWR(apiEndpoint, peopleFetcher);
 
   const updateSearchEndpoint = debounce((name) => {
     setPage(1);
