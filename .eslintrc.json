@@ -11,6 +11,9 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
-  "rules": {}
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    "react-hooks/exhaustive-deps": 0,
+    "react/react-in-jsx-scope": 0
+  }
 }
