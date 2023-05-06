@@ -45,7 +45,7 @@ describe('CountCards Component', () => {
       <CountCards
         people={mockPeopleData}
         isLoading={false}
-        error='Error message'
+        error
       />
     );
 
