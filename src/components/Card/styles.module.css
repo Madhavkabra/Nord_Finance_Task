@@ -1,0 +1,25 @@
+.card {
+  min-width: 200px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.card > p {
+  margin: 0;
+}
+
+.card > p:first-child {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.card > p:last-child {
+  margin-top: 12px;
+  font-weight: 400;
+  font-size: 18px;
+}
