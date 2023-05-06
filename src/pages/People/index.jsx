@@ -8,7 +8,7 @@ import { TableFooter } from '../../components/TableFooter';
 import { TableContainer } from '../../components/TableContainer';
 import { columns } from './columns';
 import { debounce } from '../../utils/debounce';
-import { peopleFetcher } from './peopleFetcher';
+import { peopleFetcher } from '../../services/people/peopleFetcher';
 import { CountCards } from '../../components/CountCards';
 
 export const People = () => {
@@ -69,7 +69,7 @@ export const People = () => {
         {/* Table toolbar */}
         <TableToolbar
           showInput
-          title='Star Wars'
+          title='Star Wars People'
           inputName='starWarName'
           inputPlaceholder='Search Name...'
           inputValue={searchedName}

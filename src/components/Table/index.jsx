@@ -4,11 +4,14 @@ import cx from 'classnames';
 import styles from './styles.module.css';
 import { useLoader } from '../../hooks/useLoader';
 
+const ASC_ORDER = 'asc';
+const DESC_ORDER = 'desc';
+
 export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   const [rowsData, setRowsData] = useState(rows);
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState(ASC_ORDER);
 
-  const isAsc = order === 'asc';
+  const isAsc = order === ASC_ORDER;
 
   const loader = useLoader({
     data: Object.keys(rows.length || 0),
@@ -17,28 +20,24 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   });
 
   const findDataById = (options, id) => {
-    return options?.find((option) => option.id === id);
+    return options.find((option) => option.id === id);
   };
 
   const sortData = useCallback(
     (id) => {
       const sortedRows = [...rows].sort((first, second) => {
-        const a = findDataById(second.data, id)?.['label'];
-        const b = findDataById(first.data, id)?.['label'];
+        const a = findDataById(second.data, id)['label'];
+        const b = findDataById(first.data, id)['label'];
 
-        if (typeof a === 'string') {
-          if (a > b) {
-            return isAsc ? -1 : 1;
-          }
-
-          if (a < b) {
-            return isAsc ? 1 : -1;
-          }
-
-          return 0;
+        if (a > b) {
+          return isAsc ? -1 : 1;
         }
 
-        return isAsc ? b - a : a - b;
+        if (a < b) {
+          return isAsc ? 1 : -1;
+        }
+
+        return 0;
       });
 
       setRowsData(sortedRows);
@@ -47,17 +46,17 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   );
 
   const handleClickOnColumnHead = () => {
-    if (order === 'asc') {
-      setOrder('desc');
+    if (order === ASC_ORDER) {
+      setOrder(DESC_ORDER);
       return;
     }
 
-    setOrder('asc');
+    setOrder(ASC_ORDER);
   };
 
   useEffect(() => {
-    if (order !== 'asc') {
-      setOrder('asc');
+    if (order !== ASC_ORDER) {
+      setOrder(ASC_ORDER);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedName]);

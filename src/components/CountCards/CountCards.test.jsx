@@ -30,7 +30,7 @@ describe('CountCards Component', () => {
       />
     );
 
-    const totalResultsCard = getByText('Total Resuls');
+    const totalResultsCard = getByText('Total Results');
     expect(totalResultsCard).toBeInTheDocument();
 
     const species1Card = getByText('Total Droid');

@@ -20,7 +20,7 @@ export const CountCards = ({ people, isLoading, error }) => {
       {!loader && (
         <>
           <Card
-            title='Total Resuls'
+            title='Total Results'
             description={people?.results?.length || 0}
           />
 

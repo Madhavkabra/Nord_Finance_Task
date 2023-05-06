@@ -1,7 +1,7 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import useSWR from 'swr';
-import { peopleFetcher } from './peopleFetcher';
+import { peopleFetcher } from '../../services/people/peopleFetcher';
 import { mappedMockPeople } from '../../__mocks__/people';
 import { People } from '.';
 
