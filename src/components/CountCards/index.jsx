@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 import { useLoader } from '../../hooks/useLoader';
 import { Card } from '../Card';
@@ -34,4 +35,13 @@ export const CountCards = ({ people, isLoading, error }) => {
       )}
     </div>
   );
+};
+
+CountCards.propTypes = {
+  people: PropTypes.shape({
+    speciesWithCount: PropTypes.object,
+    results: PropTypes.arrayOf(PropTypes.object),
+  }),
+  isLoading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
