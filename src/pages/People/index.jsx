@@ -55,7 +55,10 @@ export const People = () => {
   };
 
   return (
-    <div className={styles.peopleContainer}>
+    <div
+      data-testid='people-container'
+      className={styles.peopleContainer}
+    >
       <CountCards
         people={people}
         isLoading={isLoadingPeople}

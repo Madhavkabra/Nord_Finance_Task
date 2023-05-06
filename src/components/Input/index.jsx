@@ -42,6 +42,7 @@ export const Input = ({ name, value, onChange, placeholder, ...props }) => {
       {/* Clear input button */}
       {value && (
         <div
+          data-testid='clear-input-button'
           className={styles.inputIconContainer}
           onClick={handleClearInputButtonClick}
         >

@@ -17,14 +17,14 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   });
 
   const findDataById = (options, id) => {
-    return options.find((option) => option.id === id);
+    return options?.find((option) => option.id === id);
   };
 
   const sortData = useCallback(
     (id) => {
       const sortedRows = [...rows].sort((first, second) => {
-        const a = findDataById(second.data, id)['label'];
-        const b = findDataById(first.data, id)['label'];
+        const a = findDataById(second.data, id)?.['label'];
+        const b = findDataById(first.data, id)?.['label'];
 
         if (typeof a === 'string') {
           if (a > b) {
@@ -91,7 +91,7 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
         </tr>
       </thead>
 
-      <tbody>
+      <tbody data-testid='table-body'>
         {loader && (
           <tr>
             <td
@@ -105,7 +105,10 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
 
         {!loader &&
           rowsData.map((row, rowIndex) => (
-            <tr key={`${rowIndex}-${row?.id}`}>
+            <tr
+              key={`${rowIndex}-${row?.id}`}
+              data-testid={`table-row-${rowIndex}`}
+            >
               {row?.data?.map((rowData, rowDataIndex) => (
                 <td key={`${rowDataIndex}-${rowData.label}`}>
                   {rowData.label}

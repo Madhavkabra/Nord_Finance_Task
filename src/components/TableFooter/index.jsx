@@ -15,12 +15,14 @@ export const TableFooter = ({
 
       <div className={styles.tableFooterActionButtonContainer}>
         <button
+          data-testid='previous-button'
           onClick={onPrevious}
           disabled={disabledPrevious}
         >
           Previous
         </button>
         <button
+          data-testid='next-button'
           onClick={onNext}
           disabled={disabledNext}
         >
