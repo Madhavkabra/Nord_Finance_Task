@@ -9,7 +9,7 @@ export const CountCards = ({ people, isLoading, error }) => {
 
   const loader = useLoader({
     data: Object.keys(speciesWithCount).length,
-    isError: Boolean(error),
+    isError: error,
     isLoading: isLoading,
   });
 
@@ -43,5 +43,5 @@ CountCards.propTypes = {
     results: PropTypes.arrayOf(PropTypes.object),
   }),
   isLoading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  error: PropTypes.bool,
 };

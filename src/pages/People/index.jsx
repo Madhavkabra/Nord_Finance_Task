@@ -62,7 +62,7 @@ export const People = () => {
       <CountCards
         people={people}
         isLoading={isLoadingPeople}
-        error={errorPeople}
+        error={Boolean(errorPeople)}
       />
 
       <TableContainer>
