@@ -1,3 +1,17 @@
+:root {
+  --bg-primary: #000000;
+  --bg-primary-faded: #0000000d;
+  --bg-base: #ffffff;
+  --bg-neutral-faded: #c1c7d7;
+
+  --border-primary: #000000;
+  --border-disabled: #e0e0e0;
+
+  --forground-primary: #ffffff;
+  --forground-secondary: #000000;
+  --forground-primary-faded: #e0e0e0;
+}
+
 body {
   margin: 0;
   font-family: 'Titillium Web', sans-serif;

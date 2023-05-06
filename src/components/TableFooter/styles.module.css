@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-disabled);
 }
 
 .pageCount {
@@ -25,17 +25,17 @@
   cursor: pointer;
   width: 50%;
   border-radius: 8px;
-  border: 1px solid #000;
+  border: 1px solid var(--border-primary);
   font-size: 14px;
   font-weight: 400;
 }
 
 .tableFooterActionButtonContainer > button:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--bg-primary);
+  color: var(--forground-primary);
 }
 
 .tableFooterActionButtonContainer > button:disabled {
-  border-color: #e0e0e0;
+  border-color: var(--border-disabled);
   pointer-events: none;
 }

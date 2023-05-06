@@ -8,8 +8,8 @@
 
 .table > thead > tr > th {
   padding: 16px;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--bg-primary);
+  color: var(--forground-primary);
   font-weight: 600;
   white-space: nowrap;
   text-align: left;
@@ -35,7 +35,7 @@
   padding: 16px;
   font-weight: 400;
   white-space: nowrap;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-disabled);
   text-transform: capitalize;
 }
 
@@ -44,11 +44,11 @@
 }
 
 .table > tbody > tr:nth-child(even) {
-  background-color: #fff;
+  background-color: var(--bg-base);
 }
 
 .table > tbody > tr:nth-child(odd) {
-  background-color: #0000000d;
+  background-color: var(--bg-primary-faded);
 }
 
 .loader {

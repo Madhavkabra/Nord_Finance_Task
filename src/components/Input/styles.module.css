@@ -5,14 +5,14 @@
   gap: 8px;
   padding-right: 10px;
   border-radius: 8px;
-  border: 1px solid #0000000d;
-  outline-color: #e0e0e0;
+  border: 1px solid var(--border-disabled);
+  outline-color: var(--border-disabled);
   cursor: text;
   min-width: 340px;
 }
 
 .inputContainerFocused {
-  border-color: #000;
+  border-color: var(--border-primary);
 }
 
 .inputIconContainer {
@@ -27,9 +27,9 @@
 
 .inputIconContainer:hover {
   cursor: pointer;
-  background-color: #000;
-  color: #e0e0e0;
-  border-color: #000;
+  background-color: var(--bg-primary);
+  color: var(--forground-primary-faded);
+  border-color: var(--border-primary);
 }
 
 .input {
@@ -37,7 +37,7 @@
   min-width: 280px;
   font-weight: 400;
   font-size: 16px;
-  color: #000;
+  color: var(--forground-secondary);
   outline: hidden;
   outline-width: 0;
   border: none;
