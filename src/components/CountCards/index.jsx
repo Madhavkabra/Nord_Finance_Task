@@ -8,7 +8,7 @@ export const CountCards = ({ people, isLoading, error }) => {
   const speciesWithCount = people?.speciesWithCount || {};
 
   const loader = useLoader({
-    data: speciesWithCount,
+    data: Boolean(people?.results?.length),
     isError: error,
     isLoading: isLoading,
   });

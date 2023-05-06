@@ -6,7 +6,7 @@ const mockPeopleData = {
     Droid: 5,
     Human: 10,
   },
-  results: [],
+  results: [{}],
 };
 
 describe('CountCards Component', () => {
