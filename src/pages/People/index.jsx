@@ -9,13 +9,18 @@ import { TableContainer } from '../../components/TableContainer';
 import { columns } from './columns';
 import { debounce } from '../../utils/debounce';
 import { peopleFetcher } from './peopleFetcher';
+import { CountCards } from '../../components/CountCards';
 
 export const People = () => {
   const [searchedName, setSearchedName] = useState('');
   const [apiEndpoint, setApiEndpoint] = useState('/api/people/');
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, error } = useSWR(apiEndpoint, peopleFetcher);
+  const {
+    data: people,
+    isLoading: isLoadingPeople,
+    error: errorPeople,
+  } = useSWR(apiEndpoint, peopleFetcher);
 
   const updateSearchEndpoint = debounce((name) => {
     setPage(1);
@@ -51,6 +56,12 @@ export const People = () => {
 
   return (
     <div className={styles.peopleContainer}>
+      <CountCards
+        people={people}
+        isLoading={isLoadingPeople}
+        error={errorPeople}
+      />
+
       <TableContainer>
         {/* Table toolbar */}
         <TableToolbar
@@ -66,16 +77,16 @@ export const People = () => {
         <Table
           searchedName={searchedName}
           columns={columns}
-          rows={data?.results || []}
-          isError={Boolean(error)}
-          isLoading={isLoading}
+          rows={people?.results || []}
+          isError={Boolean(errorPeople)}
+          isLoading={isLoadingPeople}
         />
 
         {/* Table footer */}
         <TableFooter
           currentPage={page}
-          disabledNext={!data?.next}
-          disabledPrevious={!data?.previous}
+          disabledNext={!people?.next}
+          disabledPrevious={!people?.previous}
           onNext={handleNextButtonClick}
           onPrevious={handlePreviousButtonClick}
         />

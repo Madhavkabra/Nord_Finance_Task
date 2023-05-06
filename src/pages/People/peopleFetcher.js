@@ -67,6 +67,7 @@ export const peopleFetcher = async (apiEndpoint) => {
   const data = await res.json();
 
   let dataWithSpecies = {};
+  const speciesWithCount = {};
 
   for (let i = 0; i < data?.results?.length; i++) {
     const species = data.results[i].species;
@@ -77,6 +78,12 @@ export const peopleFetcher = async (apiEndpoint) => {
       const parsedSpecies = await speciesRes.json();
 
       speciesAttributes.push(parsedSpecies);
+
+      if (speciesWithCount[parsedSpecies.name]) {
+        speciesWithCount[parsedSpecies.name] += 1;
+      } else {
+        speciesWithCount[parsedSpecies.name] = 1;
+      }
     }
 
     dataWithSpecies = {
@@ -91,5 +98,6 @@ export const peopleFetcher = async (apiEndpoint) => {
   return {
     ...data,
     results: maniputatePeopleApiRes(dataWithSpecies.results),
+    speciesWithCount,
   };
 };

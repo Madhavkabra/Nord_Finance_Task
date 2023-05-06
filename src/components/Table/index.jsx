@@ -1,13 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './styles.module.css';
+import { useLoader } from '../../hooks/useLoader';
 
 export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   const [rowsData, setRowsData] = useState(rows);
   const [order, setOrder] = useState('asc');
 
   const isAsc = order === 'asc';
+
+  const loader = useLoader({
+    data: Object.keys(rows.length || 0),
+    isError: isError,
+    isLoading: isLoading,
+  });
 
   const findDataById = (options, id) => {
     return options.find((option) => option.id === id);
@@ -47,22 +54,6 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
 
     setOrder('asc');
   };
-
-  const loader = useMemo(() => {
-    if (isLoading) {
-      return <i className='fa-solid fa-spinner fa-2xl fa-spin' />;
-    }
-
-    if (isError) {
-      return <i className='fa-solid fa-circle-exclamation fa-2xl'></i>;
-    }
-
-    if (!isLoading && !rowsData?.length) {
-      return <i className='fa-solid fa-triangle-exclamation fa-2xl'></i>;
-    }
-
-    return null;
-  }, [rowsData, isLoading, isError]);
 
   useEffect(() => {
     if (order !== 'asc') {
