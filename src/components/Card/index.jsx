@@ -13,5 +13,5 @@ export const Card = ({ title, description }) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
