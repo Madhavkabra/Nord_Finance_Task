@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { debounce } from '../../utils/debounce';
 import styles from './styles.module.css';
 
 export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
@@ -14,15 +13,6 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
     return options.find((option) => option.id === id);
   };
 
-  const toggleOrder = useCallback(() => {
-    if (order === 'asc') {
-      setOrder('desc');
-      return;
-    }
-
-    setOrder('asc');
-  }, [order]);
-
   const sortData = useCallback(
     (id) => {
       const sortedRows = [...rows].sort((first, second) => {
@@ -31,24 +21,32 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
 
         if (typeof a === 'string') {
           if (a > b) {
-            return isAsc ? 1 : -1;
+            return isAsc ? -1 : 1;
           }
 
           if (a < b) {
-            return isAsc ? -1 : 1;
+            return isAsc ? 1 : -1;
           }
 
           return 0;
         }
 
-        return isAsc ? a - b : b - a;
+        return isAsc ? b - a : a - b;
       });
 
       setRowsData(sortedRows);
-      toggleOrder();
     },
-    [isAsc, rows, toggleOrder]
+    [isAsc, rows]
   );
+
+  const handleClickOnColumnHead = () => {
+    if (order === 'asc') {
+      setOrder('desc');
+      return;
+    }
+
+    setOrder('asc');
+  };
 
   const loader = useMemo(() => {
     if (isLoading) {
@@ -67,13 +65,16 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   }, [rowsData, isLoading, isError]);
 
   useEffect(() => {
-    debounce(setOrder('asc'));
+    if (order !== 'asc') {
+      setOrder('asc');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedName]);
 
   useEffect(() => {
     sortData('name');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows]);
+  }, [rows, order]);
 
   return (
     <table className={styles.table}>
@@ -83,7 +84,7 @@ export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
             <th
               key={`${columnIndex}-${column.label}`}
               width={column?.width || `${100 / columns.length}%`}
-              onClick={() => column?.sort && sortData(column.id)}
+              onClick={() => column?.sort && handleClickOnColumnHead(column.id)}
             >
               {column.label}
 
