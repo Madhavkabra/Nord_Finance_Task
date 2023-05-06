@@ -1,5 +1,6 @@
 .table {
   width: 100%;
+  min-height: 625px;
   border-collapse: collapse;
   overflow: auto;
   display: block;
@@ -48,4 +49,12 @@
 
 .table > tbody > tr:nth-child(odd) {
   background-color: #0000000d;
+}
+
+.loader {
+  height: 560px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

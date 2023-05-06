@@ -11,7 +11,7 @@ import { columns } from './columns';
 import { debounce } from '../../utils/debounce';
 
 const maniputatePeopleApiRes = (people) => {
-  return people.map((person, index) => ({
+  return people.map((person) => ({
     id: person.url,
     data: [
       {
@@ -71,7 +71,7 @@ export const People = () => {
   const [apiEndpoint, setApiEndpoint] = useState('/api/people/');
   const [page, setPage] = useState(1);
 
-  const { data } = useSWR(apiEndpoint, async () => {
+  const { data, isLoading, error } = useSWR(apiEndpoint, async () => {
     const res = await fetch(`${API_BASE_URL}${apiEndpoint}`);
     const data = await res.json();
 
@@ -128,6 +128,8 @@ export const People = () => {
           searchedName={searchedName}
           columns={columns}
           rows={data?.results || []}
+          isError={Boolean(error)}
+          isLoading={isLoading}
         />
 
         {/* Table footer */}

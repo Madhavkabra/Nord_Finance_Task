@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { debounce } from '../../utils/debounce';
 import styles from './styles.module.css';
 
-export const Table = ({ columns, rows, searchedName }) => {
+export const Table = ({ columns, rows, searchedName, isError, isLoading }) => {
   const [rowsData, setRowsData] = useState(rows);
   const [order, setOrder] = useState('asc');
 
@@ -50,6 +50,22 @@ export const Table = ({ columns, rows, searchedName }) => {
     [isAsc, rows, toggleOrder]
   );
 
+  const loader = useMemo(() => {
+    if (isLoading) {
+      return <i className='fa-solid fa-spinner fa-2xl fa-spin' />;
+    }
+
+    if (isError) {
+      return <i className='fa-solid fa-circle-exclamation fa-2xl'></i>;
+    }
+
+    if (!isLoading && !rowsData?.length) {
+      return <i className='fa-solid fa-triangle-exclamation fa-2xl'></i>;
+    }
+
+    return null;
+  }, [rowsData, isLoading, isError]);
+
   useEffect(() => {
     debounce(setOrder('asc'));
   }, [searchedName]);
@@ -83,21 +99,29 @@ export const Table = ({ columns, rows, searchedName }) => {
         </tr>
       </thead>
 
-      <tbody>
-        {rowsData.map((row, rowIndex) => (
-          <tr key={`${rowIndex}-${row?.id}`}>
-            {row?.data?.map((rowData, rowDataIndex) => (
-              <td key={`${rowDataIndex}-${rowData.label}`}>{rowData.label}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      {loader && <div className={styles.loader}>{loader}</div>}
+
+      {!loader && (
+        <tbody>
+          {rowsData.map((row, rowIndex) => (
+            <tr key={`${rowIndex}-${row?.id}`}>
+              {row?.data?.map((rowData, rowDataIndex) => (
+                <td key={`${rowDataIndex}-${rowData.label}`}>
+                  {rowData.label}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      )}
     </table>
   );
 };
 
 Table.propTypes = {
   searchedName: PropTypes.string,
+  isError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
